@@ -40,6 +40,12 @@ def main(config, args, extra_args):
 			db.register_link_sites(services.get_link_handlers())
 			db.register_poll_sites(services.get_poll_handlers())
 		elif config.module == "edit":
+			# Re-register services on edit in case any new services were
+			# added since the most recent edit.
+			info("Re-registering services")
+			db.register_services(services.get_service_handlers())
+			db.register_link_sites(services.get_link_handlers())
+			db.register_poll_sites(services.get_poll_handlers())
 			info("Editing database")
 			import module_edit as m
 			m.main(config, db, *extra_args)
